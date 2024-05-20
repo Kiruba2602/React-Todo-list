@@ -17,7 +17,8 @@ function App() {
     setTasks([...tasks, {text: task, completed: false}]);
   }
 
-  const editTask = (index, newTaskText) => {
+  const editTask = (index, event) => {
+    const newTaskText = event.target.value;
     const newTasks = [...tasks];
     newTasks[index].text = newTaskText;
     setTasks(newTasks);
@@ -39,15 +40,17 @@ function App() {
       <h1>Todo List</h1>
       <form>
         <input type="text" placeholder="Add a task" />
-        <button type="submit">Add Task</button>
+        <button type="submit" onClick={(e) => addTask(e.target.value)}>Add Task</button>
       </form>
       <ul>
         {tasks.map((task, index) => {
-          <li key={index}>
-            <input type="text" value={task.text} onChange={(e) => editTask(index, e.target.value)} />
-            <button onClick={() => removeTask(index)}>Delete</button>
-            <button onClick={() => toggleCompleted(index)}>{task.completed ? 'Incomplete':'Complete'}</button>
-          </li>
+          return (
+            <li key={index}>
+              <input type="text" value={task.text} onChange={(e) => editTask(index, e.target.value)} />
+              <button onClick={() => removeTask(index)}>Delete</button>
+              <button onClick={() => toggleCompleted(index)}>{task.completed ? 'Incomplete':'Complete'}</button>
+            </li>
+          );
         })}
       </ul>
     </div>
