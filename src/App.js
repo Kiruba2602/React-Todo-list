@@ -5,7 +5,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem('tasks') || []);
+    const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
     setTasks(storedTasks);
   }, []);
 
@@ -40,7 +40,11 @@ function App() {
       <h1>Todo List</h1>
       <form>
         <input type="text" placeholder="Add a task" />
-        <button type="submit" onClick={(e) => addTask(e.target.value)}>Add Task</button>
+        <button type="submit" onClick={(e) => {
+          e.preventDefault();
+          const taskText = e.target.previousSibling.value;
+          addTask(taskText);
+        }}>Add Task</button>
       </form>
       <ul>
         {tasks.map((task, index) => {
