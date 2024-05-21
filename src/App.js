@@ -1,3 +1,4 @@
+import logo from './logo.svg'
 import './App.css';
 import { useEffect, useState } from 'react';
 
@@ -37,6 +38,7 @@ function App() {
   }
   return (
     <div className="App">
+      <img src={logo} className='App-logo' alt='' />
       <h1>Todo List</h1>
       <form>
         <input type="text" placeholder="Add a task" />
